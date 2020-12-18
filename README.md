@@ -1,1 +1,1 @@
-# ms-chatroom
+# msc-chatroom
