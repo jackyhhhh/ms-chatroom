@@ -7,14 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="service-8001" />
+        <module name="provider-8001" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="provider-8001" target="1.8" />
       <module name="service-8001" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="provider-8001" options="-parameters" />
       <module name="service-8001" options="-parameters" />
     </option>
   </component>

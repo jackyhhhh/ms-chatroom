@@ -1,12 +1,12 @@
 function register() {
-    var host = "http://localhost:8001"
+    var host = localStorage.getItem("host")
     var username = document.getElementById("username")
     var password = document.getElementById("password")
     var nickname = document.getElementById("nickname")
     var oError = document.getElementById("error_box")
     var isError = true;
-    if (username.value.length > 20 || username.value.length < 6) {
-        oError.innerHTML = "用户名请输入6-20位字符";
+    if (username.value.length > 20 || username.value.length < 3) {
+        oError.innerHTML = "用户名请输入3-20位字符";
         isError = false;
         return;
     }else if((username.value.charCodeAt(0)>=48) && (username.value.charCodeAt(0)<=57)){
@@ -19,8 +19,8 @@ function register() {
         }
     }
 
-    if (password.value.length > 20 || password.value.length < 6) {
-        oError.innerHTML = "密码请输入6-20位字符"
+    if (password.value.length > 20 || password.value.length < 1) {
+        oError.innerHTML = "密码请输入1-20位字符"
         isError = false;
         return;
     }
@@ -31,9 +31,6 @@ function register() {
         "password": password.value,
         "nickname": nickname.value
     }
-    console.log("username:"+username.value)
-    console.log("password:"+password.value)
-    console.log("nickname:"+nickname.value)
     const otherParams={
         method:"POST",
         mode: "cors",

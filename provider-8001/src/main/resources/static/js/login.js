@@ -1,11 +1,12 @@
 function login() {
-    var host = "http://localhost:8001"
+    var host = localStorage.getItem("host")
+    console.log(host)
     var username = document.getElementById("username")
     var password = document.getElementById("password")
     var oError = document.getElementById("error_box")
     var isError = true;
-    if (username.value.length > 20 || username.value.length < 6) {
-        oError.innerHTML = "用户名请输入6-20位字符";
+    if (username.value.length > 20 || username.value.length < 3) {
+        oError.innerHTML = "用户名请输入3-20位字符";
         isError = false;
         return;
     }else if((username.value.charCodeAt(0)>=48) && (username.value.charCodeAt(0)<=57)){
@@ -18,8 +19,8 @@ function login() {
         }
     }
 
-    if (password.value.length > 20 || password.value.length < 6) {
-        oError.innerHTML = "密码请输入6-20位字符"
+    if (password.value.length > 20 || password.value.length < 1) {
+        oError.innerHTML = "密码请输入1-20位字符"
         isError = false;
         return;
     }
@@ -29,8 +30,6 @@ function login() {
         "username": username.value,
         "password": password.value
     }
-    console.log("name:"+username.value)
-    console.log("pwd:"+password.value)
     const otherParams={
         method:"POST",
         mode: "cors",
@@ -43,12 +42,13 @@ function login() {
     fetch(url, otherParams)
     .then(data=>{return data.json()})
     .then(res=>{
-        console.log(res.result);
         if(res.msg == "OK" && res.result == "SUCCESS"){
-            window.alert("登录成功!")
-            window.location.assign(host+"/myPage.html")
+            localStorage.setItem("uid", res.obj.uid);
+            localStorage.setItem("username", res.obj.username);
+            localStorage.setItem("nickname", res.obj.nickname);
+            window.location.assign(host+"/myPage.html");
         }else{
-            window.alert("登录失败, "+res.msg)
+            window.alert("登录失败, "+res.msg);
         }
     })
     .catch(error=>console.log(error))

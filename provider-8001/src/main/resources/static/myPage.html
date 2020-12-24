@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>我的主页</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/my.js"></script>
+    <style type="text/css">
+			a {text-decoration:none;}
+			ul li {list-style:none;}
+	</style>
 </head>
 <body>
+<div>
+    <h2><font id="user" color="blue"></font><font  color="brown">的主页</font></h2>
+</div>
+<button onclick="logout()">退出登录</button>
 <center>
     <br/>
-    <br/>
-    <h1>
-        这是我的主页
-    </h1>
+    <ul>
+        <li><h3><a href="modify_info.html">修改个人基本信息</a></h3></li>
+        <li><h3><a href="modify_pwd.html">修改登录密码</a></h3></li>
+<!--        <li><h3><a href="javascript;;" onclick="goChatting()">进入聊天</a></h3></li>-->
+    </ul>
 </center>
 </body>
 </html>
