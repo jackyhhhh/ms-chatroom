@@ -9,11 +9,12 @@
 <body>
 <center>
     <h1>新用户注册</h1><br>
+    <font id="checkUsernameLabel1"></font>
     <form >
         <table border="1">
             <tr>
                 <td>用户名:</td>
-                <td><input id="username" type="text" size="30" name="username"/></td>
+                <td><input onchange="checkUsername()" id="username_reg" type="text" size="30" name="username"/><font id="checkUsernameLabel2"></font></td>
             </tr>
             <tr>
                 <td>密码:</td>
@@ -28,6 +29,7 @@
             </tr>
         </table>
     </form>
+    <span><font id="error_box" color="red"></font> </span>
 </center>
 </body>
 </html>

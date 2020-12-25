@@ -1,6 +1,42 @@
+var host = localStorage.getItem("host")
+
+function checkUsername(){
+    var username = document.getElementById("username_reg").value
+    var error_box1 = document.getElementById("checkUsernameLabel1")
+    var error_box2 = document.getElementById("checkUsernameLabel2")
+    var url = host + "/user/checkUsername?username=" + username;
+
+    if(isNull(username)){
+        error_box1.innerHTML = "";
+        error_box2.innerHTML = "";
+    }
+
+    fetch(url, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        }).then(data=>{return data.json()})
+        .then(res=>{
+            if(res.msg == "OK" && res.result == "SUCCESS"){
+                error_box1.innerHTML = ''
+                if(! isNull(username)){
+                    error_box2.innerHTML = '<font color="green">&radic;</font>'
+                }
+            }else{
+                error_box2.innerHTML = '<font color="red">&radic;</font>'
+                error_box1.innerHTML = '<font color="red">' + res.msg + '</font>'
+            }
+        })
+        .catch(error=>console.log(error))
+
+
+}
+
 function register() {
-    var host = localStorage.getItem("host")
-    var username = document.getElementById("username")
+    var username = document.getElementById("username_reg")
     var password = document.getElementById("password")
     var nickname = document.getElementById("nickname")
     var oError = document.getElementById("error_box")
@@ -31,25 +67,6 @@ function register() {
         "password": password.value,
         "nickname": nickname.value
     }
-    const otherParams={
-        method:"POST",
-        mode: "cors",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(Data),
-    };
 
-    fetch(url, otherParams)
-    .then(data=>{return data.json()})
-    .then(res=>{
-        console.log(res.result);
-        if(res.msg == "OK" && res.result == "SUCCESS"){
-            window.alert("注册成功!")
-            window.location.assign(host+"/reg_successful.html")
-        }else{
-            window.alert("注册失败, "+res.msg)
-        }
-    })
-    .catch(error=>console.log(error))
+    postForSuccess(url, Data, "reg_successful.html", oError)
 }

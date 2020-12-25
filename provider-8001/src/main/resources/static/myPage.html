@@ -13,16 +13,22 @@
 </head>
 <body>
 <div>
-    <h2><font id="user" color="blue"></font><font  color="brown">的主页</font></h2>
+    <h2><font id="user" color="blue">我</font><font  color="brown">的主页</font></h2>
 </div>
-<button onclick="logout()">退出登录</button>
-<center>
+<button  onclick="logout()">退出登录</button>
+<button id="show_del" onclick="showDeleteElement()">注销账户</button><br/><br/>
+<div hidden id="deleteElements">
+    <input id="del_pwd" type="password" maxlength="20" placeholder="请输入密码">
+    <span><font id="error_box" color="red"></font> </span><br/><br/>
+    <input id="del_confirm" type="button" maxlength="20" onclick="removeUser()" value="确定销户(永久删除)">
+    <input id="del_cancel" type="button" maxlength="20" onclick="cancelRemove()" value="取消">
+</div>
     <br/>
     <ul>
-        <li><h3><a href="modify_info.html">修改个人基本信息</a></h3></li>
-        <li><h3><a href="modify_pwd.html">修改登录密码</a></h3></li>
-<!--        <li><h3><a href="javascript;;" onclick="goChatting()">进入聊天</a></h3></li>-->
+        <li><h2>&#10170;&nbsp;&nbsp;&spades;&nbsp;<a href="index.html">返回首页</a></h2></li>
+        <li><h2>&#10170;&nbsp;&nbsp;<font color="red">&hearts;&nbsp;</font><a href="modify_info.html">修改基本信息</a></h2></li>
+        <li><h2>&#10170;&nbsp;&nbsp;&clubs;&nbsp;<a href="modify_pwd.html">修改登录密码</a></h2></li>
+        <li><h2>&#10170;&nbsp;&nbsp;<font color="red">&diams;&nbsp;</font><a href="javascript:void(0);" onclick="goChatting()">进入聊天室</a></h2></li>
     </ul>
-</center>
 </body>
 </html>

@@ -31,7 +31,7 @@ public class UserController {
         String username = user.getUsername();
         String password = user.getPassword();
         if(uid != null){return new MyResponse("无效参数(uid="+uid+")!"); }
-        if(username == null || password==null || "".equals(username) || "".equals(password)){return new MyResponse("用户名或密码不能为空!");}
+        if(username == null || password==null || "".equals(username.trim()) || "".equals(password.trim())){return new MyResponse("用户名或密码不能为空!");}
         if(service.getByUsername(username) != null){return new MyResponse("用户名已经存在!");}
         service.save(user);
         return new MyResponse("OK");
@@ -60,13 +60,13 @@ public class UserController {
         if(uid == null){return new MyResponse("缺失参数uid");}
         User userInDB = service.getById(uid);
         if(! userInDB.getPassword().equals(password)){return new MyResponse("密码不正确!");}
-        if(username == null){
+        if(username == null || "".equals(username.trim())){
             user.setUsername(userInDB.getUsername());
         }
         if(status == null){
             user.setStatus(userInDB.getStatus());
         }
-        if(nickname == null){
+        if(nickname == null || "".equals(nickname.trim())){
             user.setNickname(userInDB.getNickname());
         }
         service.update(user);
