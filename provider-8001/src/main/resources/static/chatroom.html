@@ -1,26 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>chatroom</title>
+    <title>chat UI</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/chatroom.js"></script>
-    <style type="text/css">
-        #container{
-            border:2px blue; width:500px; height:1000px; color:red;
-        }
-    </style>
+    <link href="demo.css" rel="stylesheet">
 </head>
-<body>
-<p>这里是一个聊天室</p>
-<center>
-    <div id="container">
-        <div id="msg_window">
-
+<script>
+    document.getElementsByTagName('body').height=window.innerHeight;
+</script>
+<body class="box">
+<div class="leftbar">
+    <ul>
+        <li><i class="fas fa-user"></i></li>
+        <li><i class="fas fa-users"></i></li>
+        <li><i class="fas fa-smile"></i></li>
+        <li><i class="fas fa-envelope"></i></li>
+        <li><i class="fas fa-bell"></i></li>
+        <li><i class="fas fa-calendar-alt"></i></li>
+        <li><i class="fas fa-power-off"></i></li>
+    </ul>
+</div>
+<div class="container">
+    <div class="chatbox">
+        <div class="chatleft">
+            <div class="top">
+                <i class="fas fa-bars" style="font-size: 1.4em"></i>
+                <input type="text" placeholder="search" style="width: 140px; height: 36px; margin-left: 25px;">
+                <button class="searchbtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="center">
+                <ul>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                    <li>
+                        <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                        <span style="margin-left: 10px;">Barack Obama</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <dir id="input_box">
-
-        </dir>
+        <div class="chatright">
+            <div class="top">
+                <img style="border-radius: 20px; vertical-align: middle;" src="images/favicon.ico">
+                <span style="margin-left: 20px;">Barack Obama</span>
+                <i class="fas fa-ellipsis-v" style="font-size: 1.4em; position: absolute; right: 20px; color: gray;"></i>
+            </div>
+            <div class="center">
+                <ul id="msg_box">
+                    <li id="record" class="msgleft">
+                        <img style="border-radius: 20px; vertical-align: top;" src="images/favicon.ico">
+                        <p id="msg" class="msgcard">Initializing......</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <textarea maxlength="800" rows="5" cols="40" style="width: 100%; resize: none; border: none; " placeholder="请在此输入要发送的内容..."></textarea>
+                <button class="sendbtn">发送</button>
+            </div>
+        </div>
     </div>
-</center>
+</div>
 </body>
 </html>

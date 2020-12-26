@@ -69,7 +69,7 @@ function goChatting(){
         }).then(data=>{return data.json()})
         .then(res=>{
             if(res.msg == "OK" && res.result == "SUCCESS"){
-                window.open(host+"/"+pageName);
+                window.location.assign(host+"/chatroom.html");
             }else{
                 window.alert(res.msg);
                 return;
@@ -77,7 +77,7 @@ function goChatting(){
         })
         .catch(error=>console.log(error))
     }else {
-        window.open(host + "/chatroom.html")
+        window.location.assign(host+"/chatroom.html");
     }
 
 }
