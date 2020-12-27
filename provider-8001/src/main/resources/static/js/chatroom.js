@@ -12,16 +12,27 @@ if(isNull(uid)){
 function refreshUserList(){
     var user_box = document.getElementById("user_list");
     user_box.innerHTML = "";
-    getData(host + "/user/all").then(all=>{
-        for(var i=0;i<all.obj.length;i++){
+    getData(host + "/user/online").then(online=>{
+        for(var i=0;i<online.obj.length;i++){
             var li = document.createElement("li");
-            setUserData(all.obj[i], li);
+            setUserData(online.obj[i], li, true);
             user_box.appendChild(li);
         }
-    }).catch(error=>console.log(error))
+        return online;
+    }).then(online=>{
+        if(online.msg==="OK"){
+            getData(host + "/user/offline").then(offline=>{
+                    for(var i=0;i<offline.obj.length;i++){
+                        var li = document.createElement("li");
+                        setUserData(offline.obj[i], li, false);
+                        user_box.appendChild(li);
+                    }
+                }).catch(error=>console.log(error));
+        }
+    }).catch(error=>console.log(error));
 }
 
-function setUserData(user, li){
+function setUserData(user, li, isOnline){
     // 给li标签创建img子标签(头像)
     var img = document.createElement("img");
     img.setAttribute("style", "border-radius: 20px; vertical-align: top;");
@@ -32,17 +43,15 @@ function setUserData(user, li){
     // 给li标签创建span2子标签(用户状态)
     var span2 = document.createElement("span");
     // 根据在线状态设置的属性
-    getData(host+"/user/online").then(res=>{
-        if(res.obj.indexOf(user) == -1){
-            img.setAttribute("src", "images/default.png");
-            span2.setAttribute("style", "margin-left: 5px; color: brown");
-            span2.innerHTML = " (离线)";
-        }else{
-            img.setAttribute("src", "images/favicon.ico");
-            span2.setAttribute("style", "margin-left: 5px; color: green");
-            span2.innerHTML = " (在线)";
-        }
-    })
+    if(isOnline == false){
+        img.setAttribute("src", "images/default.png");
+        span2.setAttribute("style", "margin-left: 5px; color: brown");
+        span2.innerHTML = " (离线)";
+    }else{
+        img.setAttribute("src", "images/favicon.ico");
+        span2.setAttribute("style", "margin-left: 5px; color: green");
+        span2.innerHTML = " (在线)";
+    }
     // 将创建的标签添加到li的子节点
     li.appendChild(img);
     li.appendChild(span1);
