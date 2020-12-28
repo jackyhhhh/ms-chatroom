@@ -1,6 +1,8 @@
 package com.abc.bean;
 
-public class Password {
+import java.io.Serializable;
+
+public class ModifyPasswordForm implements Serializable {
     private Integer uid;
     private String oldPwd;
     private String newPwd;

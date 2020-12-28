@@ -1,7 +1,7 @@
 package com.abc.controller;
 
 import com.abc.bean.MyResponse;
-import com.abc.bean.Password;
+import com.abc.bean.ModifyPasswordForm;
 import com.abc.bean.User;
 import com.abc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @PostMapping("/modifyPassword")
-    public MyResponse modifyPasswordHandler(@RequestBody Password pwd){
+    public MyResponse modifyPasswordHandler(@RequestBody ModifyPasswordForm pwd){
         Integer uid = pwd.getUid();
         String oldPwd = pwd.getOldPwd();
         String newPwd = pwd.getNewPwd();

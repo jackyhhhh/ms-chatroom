@@ -1,5 +1,6 @@
 package com.abc.service;
 
+import com.abc.bean.ListUserForm;
 import com.abc.bean.User;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface UserService {
     boolean deleteByUsername(String username);
     User getByUsername(String username);
     User getById(int id);
-    List<String> listAll();
-    List<String> listOnline();
-    List<String> listOffline();
+    List<ListUserForm> listAll();
+    List<ListUserForm> listOnline();
+    List<ListUserForm> listOffline();
 }

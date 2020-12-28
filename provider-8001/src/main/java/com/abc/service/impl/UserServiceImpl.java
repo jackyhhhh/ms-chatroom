@@ -1,5 +1,6 @@
 package com.abc.service.impl;
 
+import com.abc.bean.ListUserForm;
 import com.abc.bean.User;
 import com.abc.repository.UserRepository;
 import com.abc.service.UserService;
@@ -74,31 +75,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> listAll() {
+    public List<ListUserForm> listAll() {
         List<User> users = repository.findAll();
-        List<String> usernames = new ArrayList<>();
+        List<ListUserForm> usernames = new ArrayList<>();
         for(User user: users){
-            usernames.add(user.getUsername());
+            usernames.add(new ListUserForm(user.getUsername(), user.getNickname()));
         }
         return usernames;
     }
 
     @Override
-    public List<String> listOnline() {
+    public List<ListUserForm> listOnline() {
         List<User> users = repository.findByStatus(User.STATUS_ON);
-        List<String> usernames = new ArrayList<>();
+        List<ListUserForm> usernames = new ArrayList<>();
         for(User user: users){
-            usernames.add(user.getUsername());
+            usernames.add(new ListUserForm(user.getUsername(), user.getNickname()));
         }
         return usernames;
     }
 
     @Override
-    public List<String> listOffline() {
+    public List<ListUserForm> listOffline() {
         List<User> users = repository.findByStatus(User.STATUS_OFF);
-        List<String> usernames = new ArrayList<>();
+        List<ListUserForm> usernames = new ArrayList<>();
         for (User user : users) {
-            usernames.add(user.getUsername());
+            usernames.add(new ListUserForm(user.getUsername(), user.getNickname()));
         }
         return usernames;
     }

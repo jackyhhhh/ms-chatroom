@@ -39,7 +39,11 @@ function setUserData(user, li, isOnline){
     // 给li标签创建span1子标签(用户名)
     var span1 = document.createElement("span");
     span1.setAttribute("style", "margin-left: 10px;");
-    span1.innerHTML = user;
+    if(isNotNull(user.nickname)){
+        span1.innerHTML = user.nickname;
+    }else{
+        span1.innerHTML = user.username;
+    }
     // 给li标签创建span2子标签(用户状态)
     var span2 = document.createElement("span");
     // 根据在线状态设置的属性

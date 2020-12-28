@@ -9,6 +9,23 @@ function checkUsername(){
     if(isNull(username)){
         error_box1.innerHTML = "";
         error_box2.innerHTML = "";
+        return;
+    }
+    if (username.length > 20 || username.length < 3) {
+        error_box2.innerHTML = '<font color="red">&times;</font>'
+        error_box1.innerHTML = '<font color="red">用户名请输入3-20位字符</font>';
+        return;
+    }else if((username.charCodeAt(0)>=48) && (username.charCodeAt(0)<=57)){
+        error_box2.innerHTML = '<font color="red">&times;</font>'
+        error_box1.innerHTML = '<font color="red">用户名首字符必须为字母</font>';
+        return;
+    }else for(var i=0;i<username.charCodeAt(i);i++){
+        var code = username.charCodeAt(i)
+        if(code<48 || (code>57 && code<65) || (code > 90 && code < 97) || code>122){
+            error_box2.innerHTML = '<font color="red">&times;</font>'
+            error_box1.innerHTML = '<font color="red">用户名必须为大小写字母跟数字组成</font>';
+            return;
+        }
     }
 
     getData(url).then(res=>{
@@ -18,7 +35,7 @@ function checkUsername(){
                 error_box2.innerHTML = '<font color="green">&radic;</font>'
             }
         }else{
-            error_box2.innerHTML = '<font color="red">&radic;</font>'
+            error_box2.innerHTML = '<font color="red">&times;</font>'
             error_box1.innerHTML = '<font color="red">' + res.msg + '</font>'
         }
     })
@@ -29,25 +46,28 @@ function register() {
     var username = document.getElementById("username_reg")
     var password = document.getElementById("password")
     var nickname = document.getElementById("nickname")
-    var oError = document.getElementById("error_box")
-    var isError = true;
+    var error_box = document.getElementById("error_box")
+    var error_box1 = document.getElementById("checkUsernameLabel1")
+    var error_box2 = document.getElementById("checkUsernameLabel2")
     if (username.value.length > 20 || username.value.length < 3) {
-        oError.innerHTML = "用户名请输入3-20位字符";
-        isError = false;
+        error_box2.innerHTML = '<font color="red">&times;</font>'
+        error_box1.innerHTML = '<font color="red">用户名请输入3-20位字符</font>';
         return;
     }else if((username.value.charCodeAt(0)>=48) && (username.value.charCodeAt(0)<=57)){
-        oError.innerHTML = "首字符必须为字母";
+        error_box2.innerHTML = '<font color="red">&times;</font>'
+        error_box1.innerHTML = '<font color="red">用户名首字符必须为字母</font>';
         return;
     }else for(var i=0;i<username.value.charCodeAt(i);i++){
-        if((username.value.charCodeAt(i)<48)||(username.value.charCodeAt(i)>57) && (username.value.charCodeAt(i)<97)||(username.value.charCodeAt(i)>122)){
-        oError.innerHTML = "必须为字母跟数字组成";
-        return;
+        var code = username.value.charCodeAt(i)
+        if(code<48 || (code>57 && code<65) || (code > 90 && code < 97) || code>122){
+            error_box2.innerHTML = '<font color="red">&times;</font>'
+            error_box1.innerHTML = '<font color="red">用户名必须为大小写字母跟数字组成</font>';
+            return;
         }
     }
-
+    error_box.innerHTML = "";
     if (password.value.length > 20 || password.value.length < 1) {
-        oError.innerHTML = "密码请输入1-20位字符"
-        isError = false;
+        error_box.innerHTML = "密码请输入1-20位字符"
         return;
     }
 
@@ -57,5 +77,5 @@ function register() {
         "password": password.value,
         "nickname": nickname.value
     }
-    postForSuccess(url, Data, "reg_successful.html", oError)
+    postForSuccess(url, Data, "reg_successful.html", null)
 }
