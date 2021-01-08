@@ -1,0 +1,42 @@
+server:
+  port: 80
+
+spring:
+  jpa:
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///keng_tou?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8
+    username: root
+    password: root
+
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+logging:
+  pattern:
+    console: I[%date][%level]-%msg%n
+
+  level:
+    root: info
+    org.hibernate: info
+#    org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    com.abc: debug
+
+
+
+
