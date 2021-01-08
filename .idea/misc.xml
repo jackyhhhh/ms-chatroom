@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/service-8001/pom.xml" />
         <option value="$PROJECT_DIR$/provider-8001/pom.xml" />
+        <option value="$PROJECT_DIR$/provider-with-jwt/pom.xml" />
+        <option value="$PROJECT_DIR$/provider-with-redis-token/pom.xml" />
       </list>
     </option>
   </component>
