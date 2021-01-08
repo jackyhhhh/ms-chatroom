@@ -8,7 +8,6 @@ import com.abc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.OutputKeys;
 import java.util.Date;
 
 @RestController
@@ -25,11 +24,11 @@ public class HistoryMessageController {
         Integer id = historyMessage.getMid();
         String username = historyMessage.getUsername();
         String content = historyMessage.getContent();
-        if(id != null){ return new MyResponse("无效参数(mid="+id+")"); }
-        if(username == null){return new MyResponse("用户名不能为空!");}
-        if(content == null){return new MyResponse("不能发送空白消息!"); }
+        if(id != null){ return MyResponse.fail("无效参数(mid="+id+")"); }
+        if(username == null){return MyResponse.fail("用户名不能为空!");}
+        if(content == null){return MyResponse.fail("不能发送空白消息!"); }
         msgService.save(historyMessage);
-        return new MyResponse("OK");
+        return MyResponse.success();
     }
 
     @GetMapping("/describeMsgData")
@@ -38,20 +37,19 @@ public class HistoryMessageController {
                                                                 @RequestParam("pageSize")int pageSize){
 
         User user = userService.getByUsername(username);
-        if(user == null){return new MyResponse("用户("+username+")不存在");}
+        if(user == null){return MyResponse.fail("用户("+username+")不存在");}
         Date onlineTime = user.getOnlineTime();
-        if(onlineTime == null){return new MyResponse("OK");}
-        return new MyResponse(msgService.getMsgForUserWithPaging(onlineTime, pageNumber, pageSize));
+        if(onlineTime == null){return MyResponse.success();}
+        return MyResponse.success(msgService.getMsgForUserWithPaging(onlineTime, pageNumber, pageSize));
     }
 
     @GetMapping("/describeLastMsg")
     public MyResponse getLastMsgHandler(@RequestParam("username") String username){
         User user = userService.getByUsername(username);
-        if(user == null){return new MyResponse("用户("+username+")不存在");}
+        if(user == null){return MyResponse.fail("用户("+username+")不存在");}
         Date onlineTime = user.getOnlineTime();
-        System.out.println(username+" onlineTime: "+onlineTime);
-        if(onlineTime == null){return new MyResponse("122");}
-        return new MyResponse(msgService.getLastMsgForUser(onlineTime));
+        if(onlineTime == null){return MyResponse.success();}
+        return MyResponse.success(msgService.getLastMsgForUser(onlineTime));
     }
 
 }

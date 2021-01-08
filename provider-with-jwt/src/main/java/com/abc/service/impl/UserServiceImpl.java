@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,6 +26,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         repository.save(user);
+    }
+
+    @Override
+    public boolean logout(Integer uid){
+        User user = new User();
+        Optional<User> optional = repository.findById(uid);
+        if(optional.isPresent()){
+            user = optional.get();
+        }
+        if(user.getUid() != null){
+            user.setStatus(User.STATUS_OFF);
+            user.setOnlineTime(null);
+            repository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override

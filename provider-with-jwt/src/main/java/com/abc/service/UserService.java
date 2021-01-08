@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserService {
     void save(User user);
+    boolean logout(Integer uid);
     void update(User user);
     boolean turnOn(String username);
     boolean turnOff(String username);

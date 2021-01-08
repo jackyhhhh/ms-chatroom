@@ -5,4 +5,5 @@ public interface JwtService {
     Integer getUid(String token);
     Long getTimeExpireAt(String token);
     boolean checkToken(String token);
+    String invalidToken(String token);
 }

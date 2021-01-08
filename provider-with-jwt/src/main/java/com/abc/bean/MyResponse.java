@@ -1,5 +1,8 @@
 package com.abc.bean;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
+@JSONType(orders = {"code", "result", "msg", "obj"})
 public class MyResponse {
     private Integer code;
     private String result;
@@ -8,24 +11,21 @@ public class MyResponse {
 
     public MyResponse(){}
 
-    public MyResponse(String msg){
-        this.code = 200;
-        this.obj = null;
+    public MyResponse(Integer code, String result, String msg, Object obj){
+        this.code = code;
+        this.result = result;
         this.msg = msg;
-        if("OK".equalsIgnoreCase(msg)){
-            this.msg = "OK";
-            this.result = "SUCCESS";
-        }else {
-            this.result = "FAILED";
-        }
-    }
-
-    public MyResponse(Object obj){
-        this.code = 200;
-        this.result = "SUCCESS";
-        this.msg = "OK";
         this.obj = obj;
     }
+
+    public static MyResponse success(){return new MyResponse(200, "SUCCESS", "OK", 1); }
+
+    public static MyResponse success(Object obj){return new MyResponse(200, "SUCCESS", "OK", obj); }
+
+    public static MyResponse fail(){return new MyResponse(400, "FAILED", "BAD_REQUEST", 0); }
+
+    public static MyResponse fail(String msg){return new MyResponse(400, "FAILED", msg, 0); }
+
 
     public Integer getCode() {
         return code;
