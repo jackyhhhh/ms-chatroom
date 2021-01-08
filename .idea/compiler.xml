@@ -23,6 +23,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="LakeHillCommunity" options="-parameters" />
       <module name="provider-8001" options="-parameters" />
+      <module name="provider-with-jwt" options="-parameters" />
+      <module name="provider-with-redis-token" options="-parameters" />
       <module name="service-8001" options="-parameters" />
     </option>
   </component>
