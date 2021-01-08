@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class Service8001Application {
+public class ProviderWithJwtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Service8001Application.class, args);
+		SpringApplication.run(ProviderWithJwtApplication.class, args);
 	}
 
 }
