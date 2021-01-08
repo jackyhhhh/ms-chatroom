@@ -35,14 +35,15 @@ function cancelRemove(){
 
 }
 
-$(document).ready(function(){
+function onload(){
     var name = localStorage.getItem("nickname");
     if(! isNull(name)){
         user.innerHTML = name+" ";
     }else{
         user.innerHTML = localStorage.getItem("username")+" ";
     }
-})
+}
+
 
 function logout(){
     removeLocalStorageItem();

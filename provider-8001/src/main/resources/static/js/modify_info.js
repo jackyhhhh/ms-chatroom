@@ -11,19 +11,20 @@ function modifyInfo() {
     var password = document.getElementById("password").value
     var error_box = document.getElementById("error_box")
 
+    if(isNull(username) && isNull(nickname)){
+        error_box.innerHTML = "用户名或昵称, 请至少选填一项!"
+        return;
+    }
+
     if(isNull(password)){
         error_box.innerHTML = "密码不能为空! ";
         return;
     }
     if(isNull(username)){
-        username = null;
+        username = localStorage.getItem("username");
     }
     if(isNull(nickname)){
-        nickname = null;
-    }
-    if(isNull(username) && isNull(nickname)){
-        error_box.innerHTML = "用户名或昵称, 请至少选填一项!"
-        return;
+        nickname = localStorage.getItem("nickname");
     }
 
     const url= host+ "/user/modify";
@@ -33,5 +34,14 @@ function modifyInfo() {
         "password": password,
         "nickname": nickname
     }
-    postForSuccess(url, Data, "myPage.html", error_box);
+    postData(url, Data).then(res=>{
+        if(res.result == "SUCCESS"){
+        　　localStorage.setItem("username", username);
+        　　localStorage.setItem("nickname", nickname);
+            window.location.assign(host + "/myPage.html");
+        }else{
+            error_box.innerHTML = res.msg;
+            return;
+        }
+    })
 }
