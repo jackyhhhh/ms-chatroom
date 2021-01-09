@@ -3,28 +3,44 @@ package com.abc.service.impl;
 import com.abc.service.JwtService;
 import com.abc.utils.AesEncryptUtils;
 import com.alibaba.fastjson.JSON;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+//配置信息从自定义配置my.properties文件获取
+@PropertySource(value = "classpath:my.properties", encoding = "utf-8")
 @Service
 public class JwtServiceImpl implements JwtService {
 
     /**
-     * 过期时间5分钟
+     * 过期时间
      */
-    private static final long EXPIRE_TIME = 60 * 60 * 1000;
+    @Value("${jwt.expire}")
+    private String expire;
 
     /**
      * jwt 密钥
      */
-    private static final String SECRET = "yanzhou__jghuang";
+    @Value("${jwt.secret}")
+    private String secret;
 
     @Override
     public String sign(int uid) {
         try {
-            String expireAt = System.currentTimeMillis() + EXPIRE_TIME + "";
+            long expireTime = 0L;
+            if(expire.startsWith("s")){
+                expireTime = (Long.parseLong(expire.substring(1))) * 1000;
+            }else if (expire.startsWith("m")){
+                expireTime = (Long.parseLong(expire.substring(1))) *60 * 1000;
+            }else if (expire.startsWith("h")){
+                expireTime = (Long.parseLong(expire.substring(1))) * 60 * 60 * 1000;
+            }else if (expire.startsWith("d")){
+                expireTime = (Long.parseLong(expire.substring(1))) * 24 * 60 * 60 *1000;
+            }
+            String expireAt = System.currentTimeMillis() + expireTime + "";
             Map<String, String> info = new LinkedHashMap<>();
             info.put("type", "aes");
             info.put("uid", "" + uid);
