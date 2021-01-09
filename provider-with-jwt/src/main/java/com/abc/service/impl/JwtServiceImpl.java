@@ -48,7 +48,7 @@ public class JwtServiceImpl implements JwtService {
             String tokenJson = JSON.toJSONString(info);
 //            System.out.println("createToken: token= " + tokenJson);
 
-            return AesEncryptUtils.encrypt(tokenJson);
+            return AesEncryptUtils.encrypt(tokenJson, secret);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -58,7 +58,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public Integer getUid(String token) {
         try {
-            String tokenJson = AesEncryptUtils.decrypt(token);
+            String tokenJson = AesEncryptUtils.decrypt(token, secret);
             Map info = JSON.parseObject(tokenJson, Map.class);
             return Integer.parseInt((String) info.get("uid"));
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public Long getTimeExpireAt(String token) {
         try {
-            String tokenJson = AesEncryptUtils.decrypt(token);
+            String tokenJson = AesEncryptUtils.decrypt(token, secret);
             Map info = JSON.parseObject(tokenJson, Map.class);
             return Long.parseLong((String) info.get("expireAt"));
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class JwtServiceImpl implements JwtService {
             String tokenJson = JSON.toJSONString(info);
 //            System.out.println("invalidToken: token= " + tokenJson);
 
-            return AesEncryptUtils.encrypt(tokenJson);
+            return AesEncryptUtils.encrypt(tokenJson, secret);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
