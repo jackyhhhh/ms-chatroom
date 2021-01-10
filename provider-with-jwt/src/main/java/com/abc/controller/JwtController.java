@@ -1,5 +1,6 @@
 package com.abc.controller;
 
+import com.abc.bean.MyResponse;
 import com.abc.service.JwtService;
 import com.abc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class JwtController {
     private JwtService jwtService;
 
     @GetMapping("/checkToken")
-    public void checkTokenHandler(){}
+    public MyResponse checkTokenHandler(){
+        return MyResponse.success();
+    }
 
 }

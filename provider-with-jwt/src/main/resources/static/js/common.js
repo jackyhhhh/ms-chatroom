@@ -1,9 +1,10 @@
 var host="http://"+window.location.host;
 localStorage.setItem("host", host);
 
+
 // 重新定义空值判定
 function isNull(value) {
-    if (value === null || value === "null" || value === "") {
+    if (value === null || value === "null" || value === "" || value === "undefined") {
         return true;
     } else {
         return false;
@@ -119,6 +120,15 @@ function postData(url, params) {
     referrer: 'no-referrer', // *client, no-referrer
   })
   .then(response => response.json()) // parses response to JSON
+  .then(res=>{
+     console.log("msg:"+res.msg);
+     if(isNotNull(res) && res.result == "FAILED" && res.msg.indexOf("token无效") > 0){
+          window.alert("token已过期, 请重新登录!")
+          window.location.assign(host+"/login.html");
+          return;
+     }
+     return res;
+  })
 }
 
 // get请求并返回数据
@@ -140,6 +150,14 @@ function getData(url) {
      }
   })
   .then(response => response.json()) // parses response to JSON
+  .then(res=>{
+     if(isNotNull(res) && res.result == "FAILED" && res.msg.indexOf("token无效") > 0){
+          window.alert("token已过期, 请重新登录!")
+          window.location.assign(host+"/login.html");
+          return;
+     }
+     return res;
+  })
 }
 
 /*========================================================================
@@ -187,4 +205,15 @@ function setCookie(name, value, seconds) {
  expires = "; expires="+date.toGMTString();
  }
  document.cookie = name+"="+escape(value)+expires+"; path=/";   //转码并赋值
+}
+
+//检查token是否有效
+function checkToken(){
+    getData(host + "/checkToken").then(res=>{
+        console.log(res)
+        if(isNotNull(res) && res.msg.indexOf("token无效") != -1){
+            window.alert("token已过期, 请重新登录!");
+            window.location.assign(host + "/login.html")
+        }
+    }).catch(error=>console.log(error))
 }

@@ -6,6 +6,7 @@ import com.abc.bean.User;
 import com.abc.myAnnotation.LoginFree;
 import com.abc.service.JwtService;
 import com.abc.service.UserService;
+import com.abc.utils.AesEncryptUtils;
 import com.abc.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +44,11 @@ public class UserController {
 
     @LoginFree
     @GetMapping("/logout")
-    public MyResponse logoutHandler(@RequestParam("uid") Integer uid, HttpServletRequest request, HttpServletResponse response){
+    public MyResponse logoutHandler(@RequestParam("uid") Integer uid, HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 登出时应返回一个带有失效token的Cookie
         String token = CookieUtil.getToken(request);
         CookieUtil.setTokenInCookie(jwtService.invalidToken(token), response);
-        if(userService.logout(uid)){return MyResponse.success();}
+        if(userService.logout(uid)){return MyResponse.success(AesEncryptUtils.decrypt(token,"yanzhou__jghuang"));}
         return MyResponse.fail("用户不存在!");
     }
     @LoginFree

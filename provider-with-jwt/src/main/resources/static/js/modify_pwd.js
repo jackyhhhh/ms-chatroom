@@ -2,9 +2,13 @@ var uid = localStorage.getItem("uid")
 var host = localStorage.getItem("host")
 console.log("uid:"+uid)
 console.log("host:"+host)
-if(isNull(uid)){
-    window.alert("您还未登录, 请先登录!")
-    window.location.assign(host+"/login.html")
+//if(isNull(uid)){
+//    window.alert("您还未登录, 请先登录!")
+//    window.location.assign(host+"/login.html")
+//}
+
+function onload(){
+    checkToken();
 }
 
 function modifyPassword() {

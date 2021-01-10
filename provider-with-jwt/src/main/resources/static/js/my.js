@@ -2,10 +2,10 @@ var uid = localStorage.getItem("uid")
 var host = localStorage.getItem("host")
 console.log("uid is null:"+isNull(uid))
 console.log("host:"+host)
-if(isNull(uid)){
-    window.alert("您还未登录, 请先登录!")
-    window.location.assign(host+"/login.html")
-}
+//if(isNull(uid)){
+//    window.alert("您还未登录, 请先登录!")
+//    window.location.assign(host+"/login.html")
+//}
 
 function showDeleteElement(){
     var deleteElements = document.getElementById("deleteElements");
@@ -36,6 +36,7 @@ function cancelRemove(){
 }
 
 function onload(){
+    checkToken();
     var name = localStorage.getItem("nickname");
     if(! isNull(name)){
         user.innerHTML = name+" ";
@@ -47,6 +48,13 @@ function onload(){
 
 function logout(){
     removeLocalStorageItem();
+    getData(host + "/user/logout?uid="+uid).then(res=>{
+        if(isNotNull(res) && res.result=="FAILED"){
+            window.alert("发生未知错误");
+        }
+        console.log(res)
+        window.alert(res)
+    })
     window.location.assign(host+"/index.html")
 }
 

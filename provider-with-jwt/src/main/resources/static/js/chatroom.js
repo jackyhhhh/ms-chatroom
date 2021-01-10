@@ -4,10 +4,10 @@ var username = localStorage.getItem("username");
 
 console.log("uid:"+uid)
 console.log("host:"+host)
-if(isNull(uid)){
-    window.alert("您还未登录, 请先登录!")
-    window.location.assign(host+"/login.html")
-}
+//if(isNull(uid)){
+//    window.alert("您还未登录, 请先登录!")
+//    window.location.assign(host+"/login.html")
+//}
 
 function refreshUserList(){
     var user_box = document.getElementById("user_list");
@@ -90,7 +90,8 @@ function send(){
 
 
 // 页面加载完成时执行
-$(document).ready(function(){
+function onload(){
+    checkToken();
     // 刷新用户列表
     refreshUserList();
     // 刷新消息窗
@@ -105,8 +106,7 @@ $(document).ready(function(){
             send();
         }
     }
-
-})
+}
 
 function clock(){
     var url = host + "/msg/describeLastMsg?username="+username;

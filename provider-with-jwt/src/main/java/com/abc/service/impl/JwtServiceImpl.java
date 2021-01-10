@@ -105,7 +105,7 @@ public class JwtServiceImpl implements JwtService {
             info.put("uid", "" + uid);
             info.put("expireAt", expireAt);
             String tokenJson = JSON.toJSONString(info);
-//            System.out.println("invalidToken: token= " + tokenJson);
+            System.out.println("invalidToken: token= " + tokenJson);
 
             return AesEncryptUtils.encrypt(tokenJson, secret);
         } catch (Exception e) {
