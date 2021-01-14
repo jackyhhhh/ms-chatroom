@@ -1,6 +1,8 @@
 var uid = localStorage.getItem("uid")
 var host = localStorage.getItem("host")
 var username = localStorage.getItem("username");
+//声明一个定时器
+var int = null;
 
 console.log("uid:"+uid)
 console.log("host:"+host)
@@ -97,7 +99,7 @@ function onload(){
     // 刷新消息窗
     refreshMsg();
     // 定时任务int => 定时检测是否有新消息, 有则刷新消息窗口
-    var int=self.setInterval("clock()", 500);
+    int = self.setInterval("clock()", 500);
     // 添加键盘监听事件CTRL+ENTER
     var input_box = document.getElementById("input_box");
     input_box.onkeydown=function(ev){

@@ -38,7 +38,6 @@ public class CheckLoginInterceptor implements HandlerInterceptor {
             return true;
         }
         response.setContentType("application/json;charset=utf-8");
-        response.setStatus(400);
         PrintWriter pw = response.getWriter();
         pw.println(JSON.toJSONString(MyResponse.fail("token无效, 请重新获取")));
         pw.flush();

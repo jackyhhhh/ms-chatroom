@@ -53,9 +53,9 @@ function logout(){
             window.alert("发生未知错误");
         }
         console.log(res)
-        window.alert(res)
+        window.alert("您已退出登录, 即将返回首页...")
     })
-    window.location.assign(host+"/index.html")
+    window.location.href=host+"/index.html"
 }
 
 function goChatting(){

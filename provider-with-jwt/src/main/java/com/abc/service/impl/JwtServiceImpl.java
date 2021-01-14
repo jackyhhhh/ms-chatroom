@@ -31,14 +31,14 @@ public class JwtServiceImpl implements JwtService {
     public String sign(int uid) {
         try {
             long expireTime = 0L;
-            if(expire.startsWith("s")){
-                expireTime = (Long.parseLong(expire.substring(1))) * 1000;
-            }else if (expire.startsWith("m")){
-                expireTime = (Long.parseLong(expire.substring(1))) *60 * 1000;
-            }else if (expire.startsWith("h")){
-                expireTime = (Long.parseLong(expire.substring(1))) * 60 * 60 * 1000;
-            }else if (expire.startsWith("d")){
-                expireTime = (Long.parseLong(expire.substring(1))) * 24 * 60 * 60 *1000;
+            if(expire.endsWith("s")){
+                expireTime = (Long.parseLong(expire.substring(0, expire.length()-1))) * 1000;
+            }else if (expire.endsWith("m")){
+                expireTime = (Long.parseLong(expire.substring(0, expire.length()-1))) *60 * 1000;
+            }else if (expire.endsWith("h")){
+                expireTime = (Long.parseLong(expire.substring(0, expire.length()-1))) * 60 * 60 * 1000;
+            }else if (expire.endsWith("d")){
+                expireTime = (Long.parseLong(expire.substring(0, expire.length()-1))) * 24 * 60 * 60 * 1000;
             }
             String expireAt = System.currentTimeMillis() + expireTime + "";
             Map<String, String> info = new LinkedHashMap<>();
@@ -46,7 +46,7 @@ public class JwtServiceImpl implements JwtService {
             info.put("uid", "" + uid);
             info.put("expireAt", expireAt);
             String tokenJson = JSON.toJSONString(info);
-//            System.out.println("createToken: token= " + tokenJson);
+            System.out.println("createToken: token= " + tokenJson);
 
             return AesEncryptUtils.encrypt(tokenJson, secret);
         } catch (Exception e) {
@@ -84,8 +84,8 @@ public class JwtServiceImpl implements JwtService {
         try {
             long now = System.currentTimeMillis();
             long expireAt = getTimeExpireAt(token);
-//            System.out.println("checkToken: token=" + AesEncryptUtils.decrypt(token));
-//            System.out.println("checkToken: (now-expire)/1000="+((now-expireAt)/1000));
+            System.out.println("checkToken: token=" + AesEncryptUtils.decrypt(token));
+            System.out.println("checkToken: (now-expire)/1000="+((now-expireAt)/1000));
             if(now < expireAt){
                 return true;
             }

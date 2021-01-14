@@ -121,8 +121,8 @@ function postData(url, params) {
   })
   .then(response => response.json()) // parses response to JSON
   .then(res=>{
-     console.log("msg:"+res.msg);
-     if(isNotNull(res) && res.result == "FAILED" && res.msg.indexOf("token无效") > 0){
+     if(isNotNull(res) && res.msg.indexOf("token无效") != -1){
+          console.log(res);
           window.alert("token已过期, 请重新登录!")
           window.location.assign(host+"/login.html");
           return;
@@ -146,12 +146,12 @@ function getData(url) {
      mode: "cors",
      headers: {
          "Accept": "application/json",
-         "Content-Type": "application/json"
      }
   })
   .then(response => response.json()) // parses response to JSON
   .then(res=>{
-     if(isNotNull(res) && res.result == "FAILED" && res.msg.indexOf("token无效") > 0){
+     if(isNotNull(res) && res.msg.indexOf("token无效") != -1){
+          console.log(res);
           window.alert("token已过期, 请重新登录!")
           window.location.assign(host+"/login.html");
           return;
@@ -160,52 +160,52 @@ function getData(url) {
   })
 }
 
-/*========================================================================
-    ************   退出浏览器时清空本站相关的localStorage Item   ************
- ========================================================================*/
-//初始化应用缓存
-(function(){
-if(!getCookie('eks_cache_keys')){//每次进入页面初始化缓存
-    removeLocalStorageItem();
-　　setCookie('eks_cache_keys',true);
-}
-})();
-
-/*======================================================
-    ************   cookie操作   ************
- ======================================================*/
-//取得cookie
-function getCookie(name) {
- var nameEQ = name + "=";
- var ca = document.cookie.split(';');    //把cookie分割成组
- for(var i=0;i < ca.length;i++) {
- var c = ca[i];                      //取得字符串
- while (c.charAt(0)==' ') {          //判断一下字符串有没有前导空格
- c = c.substring(1,c.length);      //有的话，从第二位开始取
- }
- if (c.indexOf(nameEQ) == 0) {       //如果含有我们要的name
- return unescape(c.substring(nameEQ.length,c.length));    //解码并截取我们要值
- }
- }
- return false;
-}
-
-//清除cookie
-function clearCookie(name) {
- setCookie(name, "", -1);
-}
-
-//设置cookie
-function setCookie(name, value, seconds) {
- seconds = seconds || 0;   //seconds有值就直接赋值，没有为0，这个根php不一样。
- var expires = "";
- if (seconds != 0 ) {      //设置cookie生存时间
- var date = new Date();
- date.setTime(date.getTime()+(seconds*1000));
- expires = "; expires="+date.toGMTString();
- }
- document.cookie = name+"="+escape(value)+expires+"; path=/";   //转码并赋值
-}
+///*========================================================================
+//    ************   退出浏览器时清空本站相关的localStorage Item   ************
+// ========================================================================*/
+////初始化应用缓存
+//(function(){
+//if(!getCookie('eks_cache_keys')){//每次进入页面初始化缓存
+//    removeLocalStorageItem();
+//　　setCookie('eks_cache_keys',true);
+//}
+//})();
+//
+///*======================================================
+//    ************   cookie操作   ************
+// ======================================================*/
+////取得cookie
+//function getCookie(name) {
+// var nameEQ = name + "=";
+// var ca = document.cookie.split(';');    //把cookie分割成组
+// for(var i=0;i < ca.length;i++) {
+// var c = ca[i];                      //取得字符串
+// while (c.charAt(0)==' ') {          //判断一下字符串有没有前导空格
+// c = c.substring(1,c.length);      //有的话，从第二位开始取
+// }
+// if (c.indexOf(nameEQ) == 0) {       //如果含有我们要的name
+// return unescape(c.substring(nameEQ.length,c.length));    //解码并截取我们要值
+// }
+// }
+// return false;
+//}
+//
+////清除cookie
+//function clearCookie(name) {
+// setCookie(name, "", -1);
+//}
+//
+////设置cookie
+//function setCookie(name, value, seconds) {
+// seconds = seconds || 0;   //seconds有值就直接赋值，没有为0，这个根php不一样。
+// var expires = "";
+// if (seconds != 0 ) {      //设置cookie生存时间
+// var date = new Date();
+// date.setTime(date.getTime()+(seconds*1000));
+// expires = "; expires="+date.toGMTString();
+// }
+// document.cookie = name+"="+escape(value)+expires+"; path=/";   //转码并赋值
+//}
 
 //检查token是否有效
 function checkToken(){

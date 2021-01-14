@@ -22,9 +22,9 @@ public class MyResponse {
 
     public static MyResponse success(Object obj){return new MyResponse(200, "SUCCESS", "OK", obj); }
 
-    public static MyResponse fail(){return new MyResponse(400, "FAILED", "BAD_REQUEST", 0); }
+    public static MyResponse fail(){return new MyResponse(200, "FAILED", "BAD_REQUEST", 0); }
 
-    public static MyResponse fail(String msg){return new MyResponse(400, "FAILED", msg, 0); }
+    public static MyResponse fail(String msg){return new MyResponse(200, "FAILED", msg, 0); }
 
 
     public Integer getCode() {
