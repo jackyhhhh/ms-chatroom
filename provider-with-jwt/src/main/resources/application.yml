@@ -26,3 +26,7 @@ logging:
 #    org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
 #    org.hibernate.type.descriptor.sql.BasicBinder: trace
     com.abc: debug
+
+jwt:
+  expire: 1h
+  secret: yanzhou__jghuang

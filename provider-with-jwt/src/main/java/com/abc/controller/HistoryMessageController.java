@@ -39,7 +39,9 @@ public class HistoryMessageController {
         User user = userService.getByUsername(username);
         if(user == null){return MyResponse.fail("用户("+username+")不存在");}
         Date onlineTime = user.getOnlineTime();
-        if(onlineTime == null){return MyResponse.success();}
+        if(onlineTime == null){
+            onlineTime = new Date();
+        }
         return MyResponse.success(msgService.getMsgForUserWithPaging(onlineTime, pageNumber, pageSize));
     }
 
@@ -48,7 +50,9 @@ public class HistoryMessageController {
         User user = userService.getByUsername(username);
         if(user == null){return MyResponse.fail("用户("+username+")不存在");}
         Date onlineTime = user.getOnlineTime();
-        if(onlineTime == null){return MyResponse.success();}
+        if(onlineTime == null){
+            onlineTime = new Date();
+        }
         return MyResponse.success(msgService.getLastMsgForUser(onlineTime));
     }
 

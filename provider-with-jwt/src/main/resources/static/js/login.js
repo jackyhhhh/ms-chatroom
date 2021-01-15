@@ -1,3 +1,13 @@
+function onload(){
+    // 添加键盘监听事件ENTER
+    document.onkeydown=function(ev){
+        var oEvent=ev||event;
+        if(oEvent.keyCode==13) { //如果按下ctrl+enter键也可以提交登录
+            login();
+        }
+    }
+}
+
 function login() {
     var host = localStorage.getItem("host")
     console.log(host)
@@ -16,7 +26,7 @@ function login() {
     }
     postData(url, Data).then(res=>{
         if(res.msg == "OK" && res.result == "SUCCESS"){
-            setLocalStorageItem(res.obj.uid, res.obj.username, res.obj.nickname)
+            setLocalStorageItem(res.obj.uid, res.obj.username, res.obj.nickname, getCookie("token"))
             window.location.assign(host+"/myPage.html");
         }else{
             error_box.innerHTML = "登录失败, "+res.msg;

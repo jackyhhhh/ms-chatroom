@@ -1,12 +1,15 @@
 var uid = localStorage.getItem("uid")
 var host = localStorage.getItem("host")
-//if(isNull(uid)){
-//    window.alert("您还未登录, 请先登录!")
-//    window.location.assign(host+"/login.html")
-//}
 
 function onload(){
     checkToken();
+        // 添加键盘监听事件ENTER
+    document.onkeydown=function(ev){
+        var oEvent=ev||event;
+        if(oEvent.keyCode==13) { //如果按下enter键也可以提交修改
+            modifyInfo();
+        }
+    }
 }
 
 function modifyInfo() {
@@ -47,5 +50,5 @@ function modifyInfo() {
             error_box.innerHTML = res.msg;
             return;
         }
-    })
+    }).catch(error=>console.log(error));
 }

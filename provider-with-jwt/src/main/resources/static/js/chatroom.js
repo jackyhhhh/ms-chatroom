@@ -1,16 +1,11 @@
 var uid = localStorage.getItem("uid")
 var host = localStorage.getItem("host")
 var username = localStorage.getItem("username");
-//声明一个定时器
+//声明一个定时任务 int
 var int = null;
 
 console.log("uid:"+uid)
 console.log("host:"+host)
-//if(isNull(uid)){
-//    window.alert("您还未登录, 请先登录!")
-//    window.location.assign(host+"/login.html")
-//}
-
 function refreshUserList(){
     var user_box = document.getElementById("user_list");
     user_box.innerHTML = "";
@@ -20,16 +15,14 @@ function refreshUserList(){
             setUserData(online.obj[i], li, true);
             user_box.appendChild(li);
         }
-        return online;
-    }).then(online=>{
         if(online.msg==="OK"){
             getData(host + "/user/offline").then(offline=>{
-                    for(var i=0;i<offline.obj.length;i++){
-                        var li = document.createElement("li");
-                        setUserData(offline.obj[i], li, false);
-                        user_box.appendChild(li);
-                    }
-                }).catch(error=>console.log(error));
+                for(var i=0;i<offline.obj.length;i++){
+                    var li = document.createElement("li");
+                    setUserData(offline.obj[i], li, false);
+                    user_box.appendChild(li);
+                }
+            }).catch(error=>console.log(error));
         }
     }).catch(error=>console.log(error));
 }
@@ -113,6 +106,7 @@ function onload(){
 function clock(){
     var url = host + "/msg/describeLastMsg?username="+username;
     getData(url).then(res=>{
+        checkTokenInRes(res);
         if(isNotNull(res.obj)){
             var maxMid_got = res.obj.mid;
             var maxMid_storage = localStorage.getItem("maxMid_storage");
@@ -134,8 +128,10 @@ function refreshMsg(){
     console.log("username:"+username);
     var url = host + "/msg/describeMsgData?pageNumber=0&pageSize=50&username=" + username;
     getData(url).then(res=>{
-        if(res.msg == "OK"){
-            var content = res.obj.content;
+        console.log("describeMsgData:");
+        console.log(res)
+        var content = res.obj.content;
+        if(res.msg == "OK" && res.obj != 1){
             if(content.length > 0){
                 localStorage.setItem("maxMid_storage", content[0].mid);
                 for(var i=content.length-1; i>=0; i--){

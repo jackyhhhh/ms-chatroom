@@ -1,4 +1,13 @@
 var host = localStorage.getItem("host")
+function onload(){
+    // 添加键盘监听事件ENTER
+    document.onkeydown=function(ev){
+        var oEvent=ev||event;
+        if(oEvent.keyCode==13) { //如果按下enter键也可以提交注册
+            register();
+        }
+    }
+}
 
 function checkUsername(){
     var username = document.getElementById("username_reg").value
@@ -77,5 +86,12 @@ function register() {
         "password": password.value,
         "nickname": nickname.value
     }
-    postForSuccess(url, Data, "reg_successful.html", null)
+    postData(url, Data).then(res=>{
+        if(res.result == "FAILED"){
+            window.alert("注册失败! " + res.msg);
+            return;
+        }else{
+            window.location.assign(host + "/reg_successful.html");
+        }
+    }).catch(error=>console.log(error));
 }

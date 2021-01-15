@@ -9,6 +9,13 @@ console.log("host:"+host)
 
 function onload(){
     checkToken();
+        // 添加键盘监听事件ENTER
+    document.onkeydown=function(ev){
+        var oEvent=ev||event;
+        if(oEvent.keyCode==13) { //如果按下enter键也可以提交修改
+            modifyPassword();
+        }
+    }
 }
 
 function modifyPassword() {
@@ -23,7 +30,14 @@ function modifyPassword() {
             "oldPwd": oldPwd,
             "newPwd": newPwd1
         }
-        postForSuccess(url, Data, "myPage.html", error_box)
+        postData(url, Data).then(res=>{
+            if(res.result == "SUCCESS"){
+                window.location.assign(host + "/myPage.html");
+            }else{
+                error_box.innerHTML = res.msg;
+                return;
+            }
+        }).catch(error=>console.log(error));
     }else{
         error_box.innerHTML = "两次输入的新密码不一样, 请重新输入! ";
         return;

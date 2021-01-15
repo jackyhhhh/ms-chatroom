@@ -3,15 +3,16 @@ package com.abc.service.impl;
 import com.abc.service.JwtService;
 import com.abc.utils.AesEncryptUtils;
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//配置信息从自定义配置my.properties文件获取
-@PropertySource(value = "classpath:my.properties", encoding = "utf-8")
+@Slf4j
+@Configuration
 @Service
 public class JwtServiceImpl implements JwtService {
 
@@ -46,7 +47,7 @@ public class JwtServiceImpl implements JwtService {
             info.put("uid", "" + uid);
             info.put("expireAt", expireAt);
             String tokenJson = JSON.toJSONString(info);
-            System.out.println("createToken: token= " + tokenJson);
+            log.debug("createToken: token= " + tokenJson);
 
             return AesEncryptUtils.encrypt(tokenJson, secret);
         } catch (Exception e) {
@@ -84,8 +85,8 @@ public class JwtServiceImpl implements JwtService {
         try {
             long now = System.currentTimeMillis();
             long expireAt = getTimeExpireAt(token);
-            System.out.println("checkToken: token=" + AesEncryptUtils.decrypt(token));
-            System.out.println("checkToken: (now-expire)/1000="+((now-expireAt)/1000));
+            log.debug("checkToken: token=" + AesEncryptUtils.decrypt(token));
+            log.debug("checkToken: (now-expire)/1000="+((now-expireAt)/1000));
             if(now < expireAt){
                 return true;
             }
@@ -105,7 +106,7 @@ public class JwtServiceImpl implements JwtService {
             info.put("uid", "" + uid);
             info.put("expireAt", expireAt);
             String tokenJson = JSON.toJSONString(info);
-            System.out.println("invalidToken: token= " + tokenJson);
+            log.debug("invalidToken: token= " + tokenJson);
 
             return AesEncryptUtils.encrypt(tokenJson, secret);
         } catch (Exception e) {
